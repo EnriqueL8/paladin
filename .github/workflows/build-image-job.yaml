@@ -95,6 +95,15 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
 
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      # This handles the lowercasing of registry as well
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ inputs.registry }}/${{ inputs.image }}:${{ inputs.image_tag }}
+
       - name: Set build tag
         id: build_tag_generator
         run: |
@@ -109,7 +118,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: ${{ inputs.push }}
           platforms: ${{ inputs.platforms }}
-          tags: "${{ inputs.registry }}/${{ inputs.image }}:${{ inputs.image_tag }}"
+          tags: ${{ steps.meta.outputs.tags }}
           labels: |
             commit=${{ github.sha }}
             build_date=${{ steps.build_tag_generator.outputs.BUILD_DATE }}
