@@ -25,9 +25,6 @@ jobs:
     #       username: ${{ secrets.DOCKERHUB_USERNAME }}
     #       password: ${{ secrets.DOCKERHUB_TOKEN }}
     core:
-        permissions:
-          contents: read
-          packages: write # Need this to push image to ghcr.io
         uses: ./.github/workflows/build-image-job.yaml
         with:
           dockerfile: ./Dockerfile
@@ -37,9 +34,6 @@ jobs:
           push: true
           platforms: "linux/amd64,linux/arm64"
     operator:
-        permissions:
-          contents: read
-          packages: write # Need this to push image to ghcr.io
         uses: ./.github/workflows/build-image-job.yaml
         with:
           dockerfile: ./operator/Dockerfile
