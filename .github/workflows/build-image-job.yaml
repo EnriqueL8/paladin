@@ -100,7 +100,7 @@ jobs:
       # This handles the lowercasing of registry as well
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v6
+        uses: docker/metadata-action@v5
         with:
           images: ${{ inputs.registry }}/${{ inputs.image }}:${{ inputs.image_tag }}
 
