@@ -33,6 +33,9 @@ jobs:
           image_tag: ${{ github.ref_name }}
           push: true
           platforms: "linux/amd64,linux/arm64"
+        secrets:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     operator:
         uses: ./.github/workflows/build-image-job.yaml
         with:
@@ -42,3 +45,6 @@ jobs:
           image_tag: ${{ github.ref_name }}
           push: true
           platforms: "linux/amd64,linux/arm64"
+        secrets:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}

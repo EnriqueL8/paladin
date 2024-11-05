@@ -79,16 +79,8 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to GHCR   
-        uses: docker/login-action@v1
-        if: ${{ inputs.push && inputs.registry == 'ghcr.io' }}
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Docker registry login
-        if: ${{ inputs.push && inputs.registry == 'docker.io' }}
+        if: ${{ inputs.push }}
         uses: docker/login-action@v3
         with:
           registry: ${{ inputs.registry }}
@@ -122,5 +114,5 @@ jobs:
             commit=${{ github.sha }}
             build_date=${{ steps.build_tag_generator.outputs.BUILD_DATE }}
             tag=${{ steps.build_tag_generator.outputs.BUILD_TAG }}
-          cache-from: type=registry,ref=${{ inputs.image }}:buildcache
-          cache-to: type=registry,ref=${{ inputs.image }}:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE_LC }}:buildcache
+          cache-to: type=registry,ref=${{{ env.IMAGE_LC }}:buildcache,mode=max
