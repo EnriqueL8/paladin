@@ -109,7 +109,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: ${{ inputs.push }}
           platforms: ${{ inputs.platforms }}
-          tags: "${{ inputs.registry }}:${{ inputs.image }}:${{ inputs.image_tag }}"
+          tags: "${{ inputs.registry }}/${{ inputs.image }}:${{ inputs.image_tag }}"
           labels: |
             commit=${{ github.sha }}
             build_date=${{ steps.build_tag_generator.outputs.BUILD_DATE }}
