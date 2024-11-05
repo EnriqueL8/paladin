@@ -115,4 +115,4 @@ jobs:
             build_date=${{ steps.build_tag_generator.outputs.BUILD_DATE }}
             tag=${{ steps.build_tag_generator.outputs.BUILD_TAG }}
           cache-from: type=registry,ref=${{ env.IMAGE_LC }}:buildcache
-          cache-to: type=registry,ref=${{{ env.IMAGE_LC }}:buildcache,mode=max
+          cache-to: type=registry,ref=${{ env.IMAGE_LC }}:buildcache,mode=max
