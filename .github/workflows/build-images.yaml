@@ -24,12 +24,19 @@ jobs:
     #     secrets:
     #       username: ${{ secrets.DOCKERHUB_USERNAME }}
     #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+    prepRepository:
+      steps:
+        - name: set lower case owner name
+          run: |
+            echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+          env:
+            OWNER: '${{ github.repository_owner }}'
     core:
         uses: ./.github/workflows/build-image-job.yaml
         with:
           dockerfile: ./Dockerfile
           registry: ghcr.io
-          image: ${{ github.repository }}/paladin
+          image: ${{ env.OWNER_LC }}/paladin
           image_tag: ${{ github.ref_name }}
           push: true
           platforms: "linux/amd64,linux/arm64"
@@ -38,7 +45,7 @@ jobs:
         with:
           dockerfile: ./operator/Dockerfile
           registry: ghcr.io
-          image: ${{ github.repository }}/paladin-operator
+          image: ${{ env.OWNER_LC }}/paladin-operator
           image_tag: ${{ github.ref_name }}
           push: true
           platforms: "linux/amd64,linux/arm64"
