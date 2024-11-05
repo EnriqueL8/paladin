@@ -102,7 +102,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ inputs.registry }}/${{ inputs.image }}:${{ inputs.image_tag }}
+          images: ${{ inputs.registry }}/${{ inputs.image }}
 
       - name: Set build tag
         id: build_tag_generator
