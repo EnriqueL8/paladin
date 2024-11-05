@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - build_ghcr_images
     paths:
     # run only on changes of code files
       - '**.go'
